@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nae's Exam Prep Hub 📚</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0e17;
+  --surface: #1a1929;
+  --surface2: #232136;
+  --card: #2b2942;
+  --primary: #ff8e71;
+  --secondary: #a78bfa;
+  --accent: #67e8f9;
+  --success: #6ee7b7;
+  --warning: #fbbf24;
+  --danger: #fb7185;
+  --text: #e8e6f0;
+  --text-dim: #9896a8;
+  --spanish: #ff8e71;
+  --english: #a78bfa;
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Background effects */
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 20% 50%, rgba(167,139,250,0.06) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, rgba(255,142,113,0.06) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 80%, rgba(103,232,249,0.04) 0%, transparent 50%);
+  z-index: -1;
+  animation: bgShift 20s ease-in-out infinite alternate;
+}
+
+@keyframes bgShift {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-3%, -3%); }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--card); border-radius: 3px; }
+
+/* Header */
+.app-header {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.app-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.6rem;
+  background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+.app-title span { font-size: 1.3rem; }
+
+.streak-badge {
+  background: linear-gradient(135deg, var(--warning), #f59e0b);
+  color: #1a1929;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Navigation */
+.nav-bar {
+  max-width: 1200px;
+  margin: 20px auto 0;
+  padding: 0 24px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  padding: 10px 20px;
+  border: 2px solid var(--card);
+  border-radius: 30px;
+  background: transparent;
+  color: var(--text-dim);
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.nav-btn:hover { border-color: var(--secondary); color: var(--text); }
+
+.nav-btn.active {
+  background: linear-gradient(135deg, var(--secondary), #8b5cf6);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(167,139,250,0.3);
+}
+
+.nav-btn.spanish-active {
+  background: linear-gradient(135deg, var(--spanish), #f97316);
+  box-shadow: 0 4px 20px rgba(255,142,113,0.3);
+}
+
+/* Main content */
+.main-content {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 0 24px 40px;
+}
+
+/* Screens */
+.screen { display: none; animation: fadeUp 0.4s ease; }
+.screen.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Home Screen */
+.welcome-hero {
+  text-align: center;
+  padding: 48px 20px 32px;
+}
+
+.welcome-hero h1 {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2.4rem;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.welcome-hero p {
+  color: var(--text-dim);
+  font-size: 1.1rem;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.subject-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.subject-card {
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: var(--radius);
+  padding: 28px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.subject-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.subject-card.spanish::before { background: linear-gradient(90deg, var(--spanish), #f97316); }
+.subject-card.english::before { background: linear-gradient(90deg, var(--english), #8b5cf6); }
+
+.subject-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  border-color: rgba(255,255,255,0.1);
+}
+
+.subject-icon { font-size: 2.8rem; margin-bottom: 16px; }
+
+.subject-card h3 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.subject-card p { color: var(--text-dim); font-size: 0.9rem; line-height: 1.5; }
+
+.subject-stats {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-val {
+  font-weight: 800;
+  font-size: 1.2rem;
+  font-family: 'Nunito', sans-serif;
+}
+
+.stat-label { font-size: 0.75rem; color: var(--text-dim); }
+
+/* Progress bar mini */
+.progress-mini {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  margin-top: 16px;
+  overflow: hidden;
+}
+
+.progress-mini-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+.spanish .progress-mini-fill { background: linear-gradient(90deg, var(--spanish), #f97316); }
+.english .progress-mini-fill { background: linear-gradient(90deg, var(--english), #8b5cf6); }
+
+/* Study Mode Selector */
+.mode-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.mode-card {
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: var(--radius);
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+.mode-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255,255,255,0.12);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+
+.mode-icon {
+  font-size: 2.4rem;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.mode-card h4 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.mode-card p { color: var(--text-dim); font-size: 0.82rem; line-height: 1.4; }
+
+/* Section header with back button */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.back-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.back-btn:hover { background: var(--card); }
+
+.section-header h2 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+.section-header .subject-tag {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.tag-spanish { background: rgba(255,142,113,0.15); color: var(--spanish); }
+.tag-english { background: rgba(167,139,250,0.15); color: var(--english); }
+
+/* Flashcard styles */
+.flashcard-container {
+  perspective: 1000px;
+  margin: 20px auto;
+  max-width: 560px;
+}
+
+.flashcard-progress {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.flashcard {
+  width: 100%;
+  min-height: 300px;
+  position: relative;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flashcard.flipped { transform: rotateY(180deg); }
+
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  text-align: center;
+}
+
+.flashcard-front {
+  background: linear-gradient(145deg, var(--surface), var(--surface2));
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.flashcard-back {
+  background: linear-gradient(145deg, var(--card), var(--surface2));
+  border: 1px solid rgba(255,255,255,0.08);
+  transform: rotateY(180deg);
+}
+
+.flashcard-face .label {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.flashcard-face .content {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.flashcard-face .hint {
+  margin-top: 16px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.flashcard-controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.fc-btn {
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.fc-btn.prev { background: var(--card); color: var(--text); }
+.fc-btn.next { background: linear-gradient(135deg, var(--secondary), #8b5cf6); color: #fff; }
+.fc-btn.shuffle { background: var(--card); color: var(--accent); }
+.fc-btn:hover { transform: scale(1.05); }
+.fc-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+
+/* Quiz styles */
+.quiz-area {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.quiz-score {
+  display: flex;
+  gap: 16px;
+}
+
+.score-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.score-item.correct { color: var(--success); }
+.score-item.wrong { color: var(--danger); }
+
+.quiz-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 4px;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+
+.quiz-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--secondary), var(--accent));
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.quiz-question-card {
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin-bottom: 20px;
+}
+
+.q-number {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+
+.q-text {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.q-passage {
+  background: rgba(255,255,255,0.03);
+  border-left: 3px solid var(--secondary);
+  padding: 16px 20px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.options-list { display: flex; flex-direction: column; gap: 10px; }
+
+.option-btn {
+  width: 100%;
+  padding: 16px 20px;
+  background: var(--card);
+  border: 2px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.option-btn:hover:not(.disabled) {
+  border-color: var(--secondary);
+  background: rgba(167,139,250,0.08);
+}
+
+.option-btn .opt-letter {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.option-btn.correct {
+  border-color: var(--success);
+  background: rgba(110,231,183,0.1);
+}
+
+.option-btn.correct .opt-letter { background: var(--success); color: var(--bg); }
+
+.option-btn.wrong {
+  border-color: var(--danger);
+  background: rgba(251,113,133,0.1);
+}
+
+.option-btn.wrong .opt-letter { background: var(--danger); color: var(--bg); }
+
+.option-btn.disabled { cursor: default; opacity: 0.6; }
+
+.explanation-box {
+  background: rgba(103,232,249,0.06);
+  border: 1px solid rgba(103,232,249,0.15);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin-top: 16px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--accent);
+  animation: fadeUp 0.3s ease;
+}
+
+.quiz-next-btn {
+  display: block;
+  margin: 24px auto 0;
+  padding: 14px 36px;
+  background: linear-gradient(135deg, var(--secondary), #8b5cf6);
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.quiz-next-btn:hover { transform: scale(1.05); box-shadow: 0 6px 24px rgba(167,139,250,0.3); }
+
+/* Quiz results */
+.quiz-results {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.results-circle {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  margin: 0 auto 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.results-circle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 6px solid var(--card);
+}
+
+.results-circle.great { border-color: var(--success); }
+.results-circle.okay { border-color: var(--warning); }
+.results-circle.needs-work { border-color: var(--danger); }
+
+.results-circle::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 6px solid transparent;
+}
+
+.results-circle.great::after { border-top-color: var(--success); border-right-color: var(--success); border-bottom-color: var(--success); }
+
+.result-pct {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2.8rem;
+}
+
+.result-label { font-size: 0.85rem; color: var(--text-dim); font-weight: 600; }
+
+.results-msg {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.results-sub { color: var(--text-dim); margin-bottom: 28px; }
+
+.results-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+/* Game Styles - Matching */
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  max-width: 700px;
+  margin: 20px auto;
+}
+
+.game-tile {
+  aspect-ratio: 1;
+  background: var(--surface);
+  border: 2px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  line-height: 1.3;
+}
+
+.game-tile:hover:not(.matched):not(.selected) {
+  border-color: var(--accent);
+  transform: scale(1.03);
+}
+
+.game-tile.selected {
+  border-color: var(--secondary);
+  background: rgba(167,139,250,0.12);
+  box-shadow: 0 0 20px rgba(167,139,250,0.2);
+}
+
+.game-tile.matched {
+  border-color: var(--success);
+  background: rgba(110,231,183,0.1);
+  opacity: 0.7;
+  cursor: default;
+}
+
+.game-tile.wrong-match {
+  border-color: var(--danger);
+  background: rgba(251,113,133,0.1);
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.game-stats {
+  text-align: center;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.game-stats .stat-item {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* Fill in the blank game */
+.fill-blank-card {
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+  padding: 32px;
+  max-width: 600px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.fill-sentence {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.blank-space {
+  display: inline-block;
+  border-bottom: 3px solid var(--secondary);
+  min-width: 120px;
+  padding: 2px 8px;
+  margin: 0 4px;
+  color: var(--secondary);
+}
+
+.fill-input-area {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.fill-input {
+  padding: 12px 20px;
+  background: var(--card);
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 240px;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.fill-input:focus { border-color: var(--secondary); }
+
+.fill-check-btn {
+  padding: 12px 28px;
+  background: linear-gradient(135deg, var(--secondary), #8b5cf6);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.fill-check-btn:hover { transform: scale(1.05); }
+
+.fill-feedback {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  animation: fadeUp 0.3s ease;
+}
+
+.fill-feedback.correct { background: rgba(110,231,183,0.1); color: var(--success); }
+.fill-feedback.wrong { background: rgba(251,113,133,0.1); color: var(--danger); }
+
+/* Study notes */
+.notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.note-card {
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.note-card-header {
+  padding: 20px 24px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+.note-card-header:hover { background: rgba(255,255,255,0.02); }
+
+.note-card-header h4 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.note-arrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s;
+  color: var(--text-dim);
+}
+
+.note-card.open .note-arrow { transform: rotate(180deg); }
+
+.note-card-body {
+  padding: 0 24px;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.note-card.open .note-card-body {
+  padding: 0 24px 24px;
+  max-height: 2000px;
+}
+
+.note-card-body p,
+.note-card-body li {
+  color: var(--text-dim);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.note-card-body ul { padding-left: 20px; margin: 8px 0; }
+.note-card-body li { margin-bottom: 6px; }
+
+.note-card-body .example {
+  background: rgba(103,232,249,0.06);
+  border-left: 3px solid var(--accent);
+  padding: 10px 16px;
+  margin: 12px 0;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+.note-card-body .vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.vocab-item {
+  background: var(--card);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.vocab-item strong { color: var(--primary); }
+
+/* Topic selector */
+.topic-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.topic-chip {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: transparent;
+  color: var(--text-dim);
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.topic-chip:hover { border-color: var(--secondary); color: var(--text); }
+.topic-chip.active { background: var(--secondary); border-color: var(--secondary); color: #fff; }
+.topic-chip.active.spanish-chip { background: var(--spanish); border-color: var(--spanish); }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .app-title { font-size: 1.2rem; }
+  .welcome-hero h1 { font-size: 1.8rem; }
+  .game-board { grid-template-columns: repeat(3, 1fr); }
+  .flashcard-face .content { font-size: 1.3rem; }
+  .q-text { font-size: 1.1rem; }
+  .mode-grid { grid-template-columns: 1fr 1fr; }
+  .nav-bar { gap: 6px; }
+  .nav-btn { padding: 8px 14px; font-size: 0.82rem; }
+}
+
+/* Typing game */
+.typing-prompt {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.typing-hint {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+/* Writing practice */
+.writing-card {
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+  padding: 28px;
+  max-width: 700px;
+  margin: 20px auto;
+}
+
+.writing-prompt-text {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.writing-textarea {
+  width: 100%;
+  min-height: 180px;
+  background: var(--card);
+  border: 2px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1rem;
+  padding: 16px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+  line-height: 1.7;
+}
+
+.writing-textarea:focus { border-color: var(--secondary); }
+
+.writing-checklist {
+  margin-top: 16px;
+  background: rgba(255,255,255,0.02);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+}
+
+.checklist-title {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+
+.checklist-item input[type="checkbox"] {
+  accent-color: var(--success);
+  width: 18px;
+  height: 18px;
+}
+
+.checklist-item.checked { color: var(--success); text-decoration: line-through; }
+
+/* Timer area */
+.timer-display {
+  text-align: center;
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.6rem;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-inner">
+    <div class="app-title">Nae's Exam Prep <span>📚</span></div>
+    <div class="streak-badge">🔥 <span id="streakCount">0</span> correct streak</div>
+  </div>
+</header>
+
+<nav class="nav-bar" id="navBar">
+  <button class="nav-btn active" onclick="showScreen('home')">🏠 Home</button>
+  <button class="nav-btn" onclick="showScreen('spanish-hub')">🇪🇸 Spanish</button>
+  <button class="nav-btn" onclick="showScreen('english-hub')">📝 English</button>
+</nav>
+
+<main class="main-content">
+
+<!-- HOME SCREEN -->
+<div class="screen active" id="screen-home">
+  <div class="welcome-hero">
+    <h1>You've Got This, Nae! 🌟</h1>
+    <p>Your exam prep headquarters — flashcards, quizzes, games, and study notes all in one place. Let's get that A!</p>
+  </div>
+  <div class="subject-cards">
+    <div class="subject-card spanish" onclick="showScreen('spanish-hub')">
+      <div class="subject-icon">🇪🇸</div>
+      <h3>Spanish</h3>
+      <p>Greetings, ser/estar, telling time, days of the week, sports, feelings, describing people & more</p>
+      <div class="subject-stats">
+        <div class="stat"><span class="stat-val" id="sp-cards-count">60</span><span class="stat-label">Flashcards</span></div>
+        <div class="stat"><span class="stat-val" id="sp-quiz-count">40</span><span class="stat-label">Quiz Qs</span></div>
+        <div class="stat"><span class="stat-val" id="sp-game-count">3</span><span class="stat-label">Games</span></div>
+      </div>
+      <div class="progress-mini"><div class="progress-mini-fill" id="sp-progress" style="width:0%"></div></div>
+    </div>
+    <div class="subject-card english" onclick="showScreen('english-hub')">
+      <div class="subject-icon">📝</div>
+      <h3>English Language Arts</h3>
+      <p>Text structures, paragraph writing, capitalization, commas, letter writing, comprehension & vocabulary</p>
+      <div class="subject-stats">
+        <div class="stat"><span class="stat-val" id="en-cards-count">50</span><span class="stat-label">Flashcards</span></div>
+        <div class="stat"><span class="stat-val" id="en-quiz-count">40</span><span class="stat-label">Quiz Qs</span></div>
+        <div class="stat"><span class="stat-val" id="en-game-count">3</span><span class="stat-label">Games</span></div>
+      </div>
+      <div class="progress-mini"><div class="progress-mini-fill" id="en-progress" style="width:0%"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SPANISH HUB -->
+<div class="screen" id="screen-spanish-hub">
+  <div class="section-header">
+    <button class="back-btn" onclick="showScreen('home')">←</button>
+    <h2>Spanish</h2>
+    <span class="subject-tag tag-spanish">Year 7</span>
+  </div>
+  <div class="mode-grid">
+    <div class="mode-card" onclick="startSpanishFlashcards()"><span class="mode-icon">🃏</span><h4>Flashcards</h4><p>Flip through vocabulary & key phrases</p></div>
+    <div class="mode-card" onclick="startSpanishQuiz()"><span class="mode-icon">❓</span><h4>Quiz</h4><p>Test your knowledge with 20 questions</p></div>
+    <div class="mode-card" onclick="startSpanishMatching()"><span class="mode-icon">🧩</span><h4>Matching Game</h4><p>Match Spanish words to English</p></div>
+    <div class="mode-card" onclick="startSpanishFillBlank()"><span class="mode-icon">✏️</span><h4>Fill in the Blank</h4><p>Complete sentences with correct words</p></div>
+    <div class="mode-card" onclick="showScreen('spanish-notes')"><span class="mode-icon">📖</span><h4>Study Notes</h4><p>Review all topics & grammar</p></div>
+    <div class="mode-card" onclick="startSpanishTyping()"><span class="mode-icon">⌨️</span><h4>Spelling Bee</h4><p>Type the Spanish translation</p></div>
+  </div>
+</div>
+
+<!-- ENGLISH HUB -->
+<div class="screen" id="screen-english-hub">
+  <div class="section-header">
+    <button class="back-btn" onclick="showScreen('home')">←</button>
+    <h2>English Language Arts</h2>
+    <span class="subject-tag tag-english">Year 7</span>
+  </div>
+  <div class="mode-grid">
+    <div class="mode-card" onclick="startEnglishFlashcards()"><span class="mode-icon">🃏</span><h4>Flashcards</h4><p>Key concepts & definitions</p></div>
+    <div class="mode-card" onclick="startEnglishQuiz()"><span class="mode-icon">❓</span><h4>Quiz</h4><p>Test your knowledge with 20 questions</p></div>
+    <div class="mode-card" onclick="startEnglishMatching()"><span class="mode-icon">🧩</span><h4>Matching Game</h4><p>Match terms to definitions</p></div>
+    <div class="mode-card" onclick="startEnglishFillBlank()"><span class="mode-icon">✏️</span><h4>Fix the Sentence</h4><p>Add correct capitalization & commas</p></div>
+    <div class="mode-card" onclick="showScreen('english-notes')"><span class="mode-icon">📖</span><h4>Study Notes</h4><p>Review all topics in detail</p></div>
+    <div class="mode-card" onclick="startWritingPractice()"><span class="mode-icon">📝</span><h4>Writing Practice</h4><p>Practice paragraphs & letters</p></div>
+  </div>
+</div>
+
+<!-- GENERIC ACTIVITY SCREEN -->
+<div class="screen" id="screen-activity">
+  <div class="section-header">
+    <button class="back-btn" id="activityBackBtn" onclick="goBackFromActivity()">←</button>
+    <h2 id="activityTitle">Activity</h2>
+    <span class="subject-tag" id="activityTag">Subject</span>
+  </div>
+  <div id="activityContent"></div>
+</div>
+
+<!-- SPANISH NOTES -->
+<div class="screen" id="screen-spanish-notes">
+  <div class="section-header">
+    <button class="back-btn" onclick="showScreen('spanish-hub')">←</button>
+    <h2>Spanish Study Notes</h2>
+    <span class="subject-tag tag-spanish">Review</span>
+  </div>
+  <div class="notes-list" id="spanishNotes"></div>
+</div>
+
+<!-- ENGLISH NOTES -->
+<div class="screen" id="screen-english-notes">
+  <div class="section-header">
+    <button class="back-btn" onclick="showScreen('english-hub')">←</button>
+    <h2>English Study Notes</h2>
+    <span class="subject-tag tag-english">Review</span>
+  </div>
+  <div class="notes-list" id="englishNotes"></div>
+</div>
+
+</main>
+
+<script>
+// ========== APP STATE ==========
+let currentSubject = '';
+let streak = 0;
+let totalCorrect = { spanish: 0, english: 0 };
+let totalAttempted = { spanish: 0, english: 0 };
+
+function updateStreak(correct) {
+  if (correct) { streak++; } else { streak = 0; }
+  document.getElementById('streakCount').textContent = streak;
+}
+
+function updateProgress() {
+  const spPct = totalAttempted.spanish > 0 ? Math.round((totalCorrect.spanish / totalAttempted.spanish) * 100) : 0;
+  const enPct = totalAttempted.english > 0 ? Math.round((totalCorrect.english / totalAttempted.english) * 100) : 0;
+  document.getElementById('sp-progress').style.width = Math.min(spPct, 100) + '%';
+  document.getElementById('en-progress').style.width = Math.min(enPct, 100) + '%';
+}
+
+// ========== NAVIGATION ==========
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active', 'spanish-active'));
+  if (id === 'home') document.querySelectorAll('.nav-btn')[0].classList.add('active');
+  else if (id.startsWith('spanish')) { document.querySelectorAll('.nav-btn')[1].classList.add('active', 'spanish-active'); currentSubject = 'spanish'; }
+  else if (id.startsWith('english')) { document.querySelectorAll('.nav-btn')[2].classList.add('active'); currentSubject = 'english'; }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showActivity(title, subject, html) {
+  currentSubject = subject;
+  document.getElementById('activityTitle').textContent = title;
+  const tag = document.getElementById('activityTag');
+  tag.textContent = subject === 'spanish' ? 'Spanish' : 'English';
+  tag.className = 'subject-tag ' + (subject === 'spanish' ? 'tag-spanish' : 'tag-english');
+  document.getElementById('activityContent').innerHTML = html;
+  showScreen('activity');
+}
+
+function goBackFromActivity() {
+  showScreen(currentSubject + '-hub');
+}
+
+// ========== SPANISH DATA ==========
+const spanishFlashcards = [
+  // Ser / Nationalities
+  { front: "yo soy", back: "I am", topic: "ser" },
+  { front: "tú eres", back: "you are (informal)", topic: "ser" },
+  { front: "él/ella es", back: "he/she is", topic: "ser" },
+  { front: "nosotros somos", back: "we are", topic: "ser" },
+  { front: "ellos/ellas son", back: "they are", topic: "ser" },
+  { front: "Soy de Jamaica.", back: "I am from Jamaica.", topic: "ser" },
+  { front: "¿De dónde eres?", back: "Where are you from?", topic: "ser" },
+  { front: "Soy caymanés/caymanesa.", back: "I am Caymanian.", topic: "ser" },
+  { front: "Soy americano/americana.", back: "I am American.", topic: "ser" },
+  { front: "Soy inglés/inglesa.", back: "I am English.", topic: "ser" },
+  // ¿Verdad? / estudiar & hablar
+  { front: "estudiar", back: "to study", topic: "verdad" },
+  { front: "hablar", back: "to speak/talk", topic: "verdad" },
+  { front: "yo estudio", back: "I study", topic: "verdad" },
+  { front: "tú estudias", back: "you study", topic: "verdad" },
+  { front: "él/ella estudia", back: "he/she studies", topic: "verdad" },
+  { front: "nosotros estudiamos", back: "we study", topic: "verdad" },
+  { front: "yo hablo", back: "I speak", topic: "verdad" },
+  { front: "tú hablas", back: "you speak", topic: "verdad" },
+  { front: "¿Verdad?", back: "Right? / Isn't that so?", topic: "verdad" },
+  { front: "¿Hablas español?", back: "Do you speak Spanish?", topic: "verdad" },
+  // Describing people
+  { front: "alto/alta", back: "tall", topic: "descriptions" },
+  { front: "bajo/baja", back: "short", topic: "descriptions" },
+  { front: "bonito/bonita", back: "pretty/handsome", topic: "descriptions" },
+  { front: "inteligente", back: "intelligent", topic: "descriptions" },
+  { front: "simpático/simpática", back: "nice/friendly", topic: "descriptions" },
+  { front: "divertido/divertida", back: "funny/fun", topic: "descriptions" },
+  { front: "grande", back: "big", topic: "descriptions" },
+  { front: "pequeño/pequeña", back: "small", topic: "descriptions" },
+  { front: "Ella es alta y bonita.", back: "She is tall and pretty.", topic: "descriptions" },
+  // Numbers 1-40
+  { front: "uno, dos, tres", back: "1, 2, 3", topic: "numbers" },
+  { front: "cuatro, cinco, seis", back: "4, 5, 6", topic: "numbers" },
+  { front: "siete, ocho, nueve, diez", back: "7, 8, 9, 10", topic: "numbers" },
+  { front: "once, doce, trece", back: "11, 12, 13", topic: "numbers" },
+  { front: "catorce, quince", back: "14, 15", topic: "numbers" },
+  { front: "dieciséis, diecisiete", back: "16, 17", topic: "numbers" },
+  { front: "dieciocho, diecinueve, veinte", back: "18, 19, 20", topic: "numbers" },
+  { front: "veintiuno, veintidós", back: "21, 22", topic: "numbers" },
+  { front: "treinta, treinta y uno", back: "30, 31", topic: "numbers" },
+  { front: "cuarenta", back: "40", topic: "numbers" },
+  // ¿Quién soy? / tener / age
+  { front: "tener", back: "to have", topic: "tener" },
+  { front: "yo tengo", back: "I have", topic: "tener" },
+  { front: "tú tienes", back: "you have", topic: "tener" },
+  { front: "él/ella tiene", back: "he/she has", topic: "tener" },
+  { front: "¿Cuántos años tienes?", back: "How old are you?", topic: "tener" },
+  { front: "Tengo doce años.", back: "I am 12 years old.", topic: "tener" },
+  { front: "Tengo trece años.", back: "I am 13 years old.", topic: "tener" },
+  // Sports
+  { front: "el fútbol", back: "soccer/football", topic: "sports" },
+  { front: "el baloncesto", back: "basketball", topic: "sports" },
+  { front: "el béisbol", back: "baseball", topic: "sports" },
+  { front: "la natación", back: "swimming", topic: "sports" },
+  { front: "el tenis", back: "tennis", topic: "sports" },
+  { front: "Me gusta el fútbol.", back: "I like soccer.", topic: "sports" },
+  { front: "No me gusta el béisbol.", back: "I don't like baseball.", topic: "sports" },
+  { front: "¿Cuál es tu deporte favorito?", back: "What is your favourite sport?", topic: "sports" },
+  // Time
+  { front: "¿Qué hora es?", back: "What time is it?", topic: "time" },
+  { front: "Es la una.", back: "It is 1 o'clock.", topic: "time" },
+  { front: "Son las dos.", back: "It is 2 o'clock.", topic: "time" },
+  { front: "Son las tres y media.", back: "It is 3:30.", topic: "time" },
+  { front: "Son las cuatro y cuarto.", back: "It is 4:15.", topic: "time" },
+  { front: "Son las cinco menos cuarto.", back: "It is 4:45.", topic: "time" },
+  // Days of the week
+  { front: "lunes", back: "Monday", topic: "days" },
+  { front: "martes", back: "Tuesday", topic: "days" },
+  { front: "miércoles", back: "Wednesday", topic: "days" },
+  { front: "jueves", back: "Thursday", topic: "days" },
+  { front: "viernes", back: "Friday", topic: "days" },
+  { front: "sábado", back: "Saturday", topic: "days" },
+  { front: "domingo", back: "Sunday", topic: "days" },
+  // Feelings
+  { front: "contento/contenta", back: "happy", topic: "feelings" },
+  { front: "triste", back: "sad", topic: "feelings" },
+  { front: "enojado/enojada", back: "angry", topic: "feelings" },
+  { front: "cansado/cansada", back: "tired", topic: "feelings" },
+  { front: "enfermo/enferma", back: "sick", topic: "feelings" },
+  { front: "nervioso/nerviosa", back: "nervous", topic: "feelings" },
+  { front: "¿Cómo estás?", back: "How are you?", topic: "feelings" },
+  { front: "Estoy bien, gracias.", back: "I am fine, thank you.", topic: "feelings" },
+  // Llegamos tarde / Places
+  { front: "ir", back: "to go", topic: "places" },
+  { front: "yo voy", back: "I go", topic: "places" },
+  { front: "tú vas", back: "you go", topic: "places" },
+  { front: "él/ella va", back: "he/she goes", topic: "places" },
+  { front: "Voy a la escuela.", back: "I go to school.", topic: "places" },
+  { front: "Voy al parque.", back: "I go to the park.", topic: "places" },
+  { front: "temprano", back: "early", topic: "places" },
+  { front: "tarde", back: "late", topic: "places" },
+  { front: "a tiempo", back: "on time", topic: "places" },
+  { front: "la escuela", back: "the school", topic: "places" },
+  { front: "la tienda", back: "the store/shop", topic: "places" },
+  { front: "la biblioteca", back: "the library", topic: "places" },
+];
+
+const spanishQuiz = [
+  { q: "How do you say 'I am' using the verb ser?", opts: ["Yo soy", "Yo estoy", "Yo tengo", "Yo voy"], ans: 0, exp: "'Ser' is used for permanent traits. Yo soy = I am." },
+  { q: "What is the correct conjugation: Ella ___ de México.", opts: ["soy", "eres", "es", "somos"], ans: 2, exp: "Ella (she) uses 'es' — the third person form of ser." },
+  { q: "What does '¿De dónde eres?' mean?", opts: ["How old are you?", "Where are you from?", "What is your name?", "How are you?"], ans: 1, exp: "'¿De dónde eres?' literally means 'From where are you?'" },
+  { q: "How do you say 'we study' in Spanish?", opts: ["estudiamos", "estudian", "estudias", "estudio"], ans: 0, exp: "Nosotros estudiamos = We study. The -amos ending is for nosotros with -ar verbs." },
+  { q: "What does 'hablar' mean?", opts: ["to eat", "to speak/talk", "to walk", "to write"], ans: 1, exp: "Hablar = to speak or to talk. It's a regular -ar verb." },
+  { q: "What is '¿Verdad?' used for?", opts: ["Asking someone's age", "Confirming something (Right?)", "Saying goodbye", "Ordering food"], ans: 1, exp: "'¿Verdad?' is a tag question meaning 'Right?' or 'Isn't that so?'" },
+  { q: "How do you say 'tall' to describe a girl?", opts: ["alto", "alta", "altos", "altas"], ans: 1, exp: "Adjectives agree with the noun's gender. For a girl: alta (feminine)." },
+  { q: "Which means 'funny/fun'?", opts: ["simpático", "inteligente", "divertido", "bonito"], ans: 2, exp: "Divertido/divertida = funny or fun." },
+  { q: "What is the Spanish word for 15?", opts: ["catorce", "quince", "dieciséis", "trece"], ans: 1, exp: "Quince = 15. The numbers 11-15 each have unique names." },
+  { q: "How do you say 22 in Spanish?", opts: ["veintiuno", "veintidós", "doce", "treinta y dos"], ans: 1, exp: "Veintidós = 22. Numbers 21-29 are written as one word with 'veinti-'." },
+  { q: "What does 'Tengo trece años' mean?", opts: ["I have thirteen pets", "I am thirteen years old", "It is 3 o'clock", "I go to school at 3"], ans: 1, exp: "In Spanish, you 'have' years — Tengo trece años = I am 13 years old." },
+  { q: "How do you ask 'How old are you?'", opts: ["¿Cómo te llamas?", "¿Cuántos años tienes?", "¿Qué hora es?", "¿De dónde eres?"], ans: 1, exp: "'¿Cuántos años tienes?' literally means 'How many years do you have?'" },
+  { q: "Which is the correct form: Yo ___ doce años.", opts: ["soy", "tengo", "estoy", "voy"], ans: 1, exp: "Use 'tener' for age in Spanish: Yo tengo doce años = I am 12 years old." },
+  { q: "What is 'el fútbol' in English?", opts: ["Football/Soccer", "Basketball", "Tennis", "Swimming"], ans: 0, exp: "El fútbol = soccer/football." },
+  { q: "'Me gusta el baloncesto' means:", opts: ["I play basketball", "I like basketball", "I watch basketball", "I hate basketball"], ans: 1, exp: "'Me gusta' = I like. Me gusta el baloncesto = I like basketball." },
+  { q: "How do you say 'It is 3:30'?", opts: ["Son las tres y cuarto", "Son las tres y media", "Es la tres y media", "Son las tres menos cuarto"], ans: 1, exp: "'Y media' means 'and a half.' Son las tres y media = It is 3:30." },
+  { q: "Which means 'It is 1 o'clock'?", opts: ["Son las una", "Es la una", "Es una", "Son la una"], ans: 1, exp: "For 1 o'clock, use 'Es la una' (singular). For all other hours, use 'Son las...'" },
+  { q: "What day is 'miércoles'?", opts: ["Monday", "Tuesday", "Wednesday", "Thursday"], ans: 2, exp: "Miércoles = Wednesday. Days of the week are not capitalised in Spanish!" },
+  { q: "What does 'viernes' mean?", opts: ["Thursday", "Friday", "Saturday", "Sunday"], ans: 1, exp: "Viernes = Friday." },
+  { q: "How do you say 'I am happy' (emotional state)?", opts: ["Soy contento", "Estoy contento/a", "Tengo contento", "Voy contento"], ans: 1, exp: "Use 'estar' for feelings/emotions: Estoy contento/a = I am happy." },
+  { q: "'Estoy cansada' means:", opts: ["I am tired (female)", "I am sick", "I am angry", "I am nervous"], ans: 0, exp: "Cansada = tired (feminine form). Estoy cansada = I am tired." },
+  { q: "How do you say 'How are you?'", opts: ["¿Qué tal?", "¿Cómo estás?", "Both A and B", "¿Cómo eres?"], ans: 2, exp: "Both '¿Qué tal?' and '¿Cómo estás?' mean 'How are you?' in Spanish." },
+  { q: "What does 'Voy a la escuela' mean?", opts: ["I go to school", "I like school", "I am at school", "I study at school"], ans: 0, exp: "Voy (I go) + a la escuela (to school). Ir is the verb 'to go'." },
+  { q: "What is the conjugation of 'ir' for 'tú'?", opts: ["voy", "vas", "va", "vamos"], ans: 1, exp: "Ir is irregular: yo voy, tú vas, él/ella va, nosotros vamos." },
+  { q: "What does 'tarde' mean?", opts: ["early", "late", "morning", "night"], ans: 1, exp: "Tarde = late. Temprano = early. A tiempo = on time." },
+  { q: "'La biblioteca' means:", opts: ["The bookstore", "The library", "The school", "The park"], ans: 1, exp: "La biblioteca = the library." },
+  { q: "Which verb do you use to describe nationality?", opts: ["estar", "tener", "ir", "ser"], ans: 3, exp: "Use 'ser' for permanent characteristics like nationality: Soy caymanés/caymanesa." },
+  { q: "Nosotros ___ al parque.", opts: ["va", "voy", "vamos", "van"], ans: 2, exp: "Nosotros vamos = We go. Vamos uses the nosotros form of 'ir'." },
+  { q: "What is 'la natación'?", opts: ["Running", "Swimming", "Cycling", "Jumping"], ans: 1, exp: "La natación = swimming." },
+  { q: "'Son las cinco menos cuarto' is what time?", opts: ["5:15", "5:30", "4:45", "5:45"], ans: 2, exp: "'Menos cuarto' means 'minus a quarter.' Five minus a quarter = 4:45." },
+  { q: "How do you say 'small' for a boy?", opts: ["pequeña", "pequeño", "grande", "bajo"], ans: 1, exp: "Pequeño (masculine) / pequeña (feminine) = small." },
+  { q: "What does 'simpática' describe?", opts: ["A nice/friendly girl", "A tall girl", "A smart girl", "A funny girl"], ans: 0, exp: "Simpática (feminine) = nice/friendly." },
+  { q: "What number is 'cuarenta'?", opts: ["14", "40", "44", "4"], ans: 1, exp: "Cuarenta = 40. Catorce = 14. Cuatro = 4." },
+  { q: "'Diecisiete' is which number?", opts: ["16", "17", "18", "15"], ans: 1, exp: "Diecisiete = 17 (diez + siete)." },
+  { q: "Translate: 'Ella habla español, ¿verdad?'", opts: ["She speaks Spanish, right?", "She studies Spanish", "She likes Spanish, right?", "She goes to Spain"], ans: 0, exp: "Ella habla español = She speaks Spanish. ¿Verdad? = right?" },
+  { q: "What does 'enfermo' mean?", opts: ["angry", "nervous", "sick", "tired"], ans: 2, exp: "Enfermo/enferma = sick/ill." },
+  { q: "Which is Sunday?", opts: ["sábado", "domingo", "lunes", "viernes"], ans: 1, exp: "Domingo = Sunday. Sábado = Saturday." },
+  { q: "How do you say 'you have' (informal)?", opts: ["yo tengo", "tú tienes", "él tiene", "nosotros tenemos"], ans: 1, exp: "Tú tienes = you have (informal singular)." },
+  { q: "'Estoy nervioso' means:", opts: ["I am happy", "I am sad", "I am nervous", "I am angry"], ans: 2, exp: "Nervioso/nerviosa = nervous. Estoy nervioso = I am nervous." },
+  { q: "What does 'temprano' mean?", opts: ["late", "on time", "early", "slow"], ans: 2, exp: "Temprano = early. The opposite is 'tarde' (late)." },
+];
+
+const spanishFillBlanks = [
+  { sentence: "Yo ___ de las Islas Caimán.", answer: "soy", hint: "Use 'ser' for nationality" },
+  { sentence: "Ella ___ alta y bonita.", answer: "es", hint: "Third person of 'ser'" },
+  { sentence: "Nosotros ___ español en la escuela.", answer: "estudiamos", hint: "We study = nosotros + estudiar" },
+  { sentence: "¿Cuántos ___ tienes?", answer: "años", hint: "How many ____ do you have?" },
+  { sentence: "Tengo ___ años. (13)", answer: "trece", hint: "The number 13 in Spanish" },
+  { sentence: "Me ___ el fútbol.", answer: "gusta", hint: "I like = Me ____" },
+  { sentence: "Son las dos y ___. (2:30)", answer: "media", hint: "Half past = y ____" },
+  { sentence: "Hoy es ___. (Monday)", answer: "lunes", hint: "First day of the week" },
+  { sentence: "Estoy ___ hoy. (tired, male)", answer: "cansado", hint: "Masculine form of tired" },
+  { sentence: "Yo ___ a la escuela. (I go)", answer: "voy", hint: "First person of 'ir'" },
+  { sentence: "Tú ___ español muy bien.", answer: "hablas", hint: "You speak = tú + hablar" },
+  { sentence: "Ella ___ quince años.", answer: "tiene", hint: "She has = ella + tener" },
+  { sentence: "___ las tres y cuarto. (It's 3:15)", answer: "Son", hint: "Use 'Son' for all hours except 1" },
+  { sentence: "Vamos ___ parque. (to the)", answer: "al", hint: "a + el = ___" },
+  { sentence: "Él es muy ___. (intelligent)", answer: "inteligente", hint: "This adjective is the same for both genders" },
+];
+
+const spanishMatchPairs = [
+  { spanish: "yo soy", english: "I am" },
+  { spanish: "tú eres", english: "you are" },
+  { spanish: "hablar", english: "to speak" },
+  { spanish: "estudiar", english: "to study" },
+  { spanish: "contento", english: "happy" },
+  { spanish: "triste", english: "sad" },
+  { spanish: "lunes", english: "Monday" },
+  { spanish: "viernes", english: "Friday" },
+  { spanish: "la escuela", english: "the school" },
+  { spanish: "el fútbol", english: "soccer" },
+  { spanish: "grande", english: "big" },
+  { spanish: "pequeño", english: "small" },
+];
+
+// ========== ENGLISH DATA ==========
+const englishFlashcards = [
+  // Text Structures
+  { front: "Cause and Effect", back: "A text structure that shows why something happened (cause) and what happened as a result (effect). Signal words: because, since, therefore, as a result, consequently.", topic: "text-structures" },
+  { front: "Sequence / Chronological Order", back: "A text structure that presents events or steps in the order they happen. Signal words: first, next, then, after, finally, before, during.", topic: "text-structures" },
+  { front: "Problem and Solution", back: "A text structure that describes a problem and then explains one or more solutions. Signal words: the problem is, the solution is, as a result, one way to solve.", topic: "text-structures" },
+  { front: "Compare and Contrast", back: "A text structure that shows how two or more things are alike and/or different. Signal words: similarly, however, on the other hand, both, unlike.", topic: "text-structures" },
+  { front: "Signal words for Cause & Effect", back: "because, since, so, therefore, as a result, consequently, due to, for this reason, if...then", topic: "text-structures" },
+  { front: "Signal words for Sequence", back: "first, second, next, then, after, before, finally, during, meanwhile, later, in the beginning", topic: "text-structures" },
+  { front: "Signal words for Problem & Solution", back: "the problem is, the issue is, the solution is, to solve this, one way to fix, as a result of this action", topic: "text-structures" },
+  // Expository Paragraph
+  { front: "Topic Sentence", back: "The first sentence of a paragraph that states the main idea. It tells the reader what the paragraph will be about.", topic: "paragraphs" },
+  { front: "Supporting Details", back: "Sentences in a paragraph that give facts, examples, reasons, or explanations to support the topic sentence.", topic: "paragraphs" },
+  { front: "Concluding Sentence", back: "The last sentence of a paragraph that restates the main idea in different words or wraps up the paragraph.", topic: "paragraphs" },
+  { front: "Expository Writing", back: "Writing that explains, describes, or informs the reader about a topic using facts and evidence. It does NOT include personal opinions.", topic: "paragraphs" },
+  { front: "Structure of an Expository Paragraph", back: "1) Topic sentence (main idea) → 2) Supporting details (facts, examples, reasons) → 3) Concluding sentence (restate/wrap up)", topic: "paragraphs" },
+  // Capitalization
+  { front: "Capitalization Rules", back: "Capitalize: first word of a sentence, proper nouns (names, places, countries), days, months, titles (Mr., Dr.), the pronoun 'I', and titles of works.", topic: "capitalization" },
+  { front: "Proper Noun", back: "A noun that names a specific person, place, or thing. Always capitalized. Example: Cayman Islands, George Town, Mrs. Johnson.", topic: "capitalization" },
+  { front: "Common Noun", back: "A general noun that is NOT capitalized (unless it starts a sentence). Examples: school, city, country, teacher.", topic: "capitalization" },
+  // Commas
+  { front: "Commas in a List", back: "Use commas to separate three or more items in a series. Example: I bought apples, oranges, and bananas.", topic: "commas" },
+  { front: "Commas with Introductory Words", back: "Use a comma after introductory words or phrases. Examples: However, ... / First, ... / In my opinion, ... / After school, ...", topic: "commas" },
+  { front: "Commas with Conjunctions", back: "Use a comma before a coordinating conjunction (FANBOYS: for, and, nor, but, or, yet, so) when joining two complete sentences.", topic: "commas" },
+  { front: "FANBOYS", back: "The 7 coordinating conjunctions: For, And, Nor, But, Or, Yet, So. Use a comma before them when connecting two independent clauses.", topic: "commas" },
+  { front: "Commas with Non-Essential Elements", back: "Use commas around extra information that can be removed without changing the sentence's meaning. Example: My sister, who is 10, loves to read.", topic: "commas" },
+  { front: "Commas after Introductory Phrases", back: "Place a comma after a phrase that comes before the main clause. Example: After finishing homework, I went outside.", topic: "commas" },
+  // Comprehension
+  { front: "Main Idea", back: "The most important point or central message of a text. Ask: What is the author mostly writing about?", topic: "comprehension" },
+  { front: "Supporting Details (comprehension)", back: "Facts, examples, or evidence in the text that back up the main idea.", topic: "comprehension" },
+  { front: "Literal Comprehension", back: "Understanding what the text directly says — facts and details that are stated explicitly.", topic: "comprehension" },
+  { front: "Inferential Comprehension", back: "Reading between the lines — understanding information that is implied but not directly stated.", topic: "comprehension" },
+  { front: "Context Clues", back: "Words or phrases near an unknown word that help you figure out its meaning. Types: synonym, antonym, definition, example.", topic: "comprehension" },
+  // Letter Writing
+  { front: "Formal Letter", back: "A professional letter with a business-like tone. Uses proper format: sender's address, date, recipient's address, salutation (Dear Sir/Madam), body, closing (Yours faithfully/sincerely).", topic: "letters" },
+  { front: "Informal Letter", back: "A personal letter to friends or family. Uses a casual tone: Dear [Name], friendly language, closing like 'Love' or 'Best wishes'.", topic: "letters" },
+  { front: "Parts of a Letter", back: "1) Heading (address & date), 2) Salutation (greeting), 3) Body (main content), 4) Closing (sign-off), 5) Signature", topic: "letters" },
+  { front: "Types of Formal Letters", back: "Job Application Letter (applying for work), Complaint Letter (expressing dissatisfaction), Invitation Letter, Request Letter (asking for something).", topic: "letters" },
+  { front: "Job Application Letter", back: "A formal letter sent to apply for a position. Includes: why you're writing, your qualifications, why you're a good fit, and a polite closing.", topic: "letters" },
+  { front: "Complaint Letter", back: "A formal letter expressing dissatisfaction with a product or service. State the problem clearly, provide details, and request a specific resolution.", topic: "letters" },
+  { front: "Invitation Letter", back: "A formal letter inviting someone to an event. Include: event details (what, when, where), RSVP information, and a polite tone.", topic: "letters" },
+  { front: "Request Letter", back: "A formal letter asking for something specific — information, permission, or action. Be polite, clear, and state exactly what you need.", topic: "letters" },
+  { front: "Formal vs Informal Salutation", back: "Formal: 'Dear Sir/Madam,' or 'Dear Mr./Mrs. [Name],' — Informal: 'Dear [First Name],' or 'Hi [Name],'", topic: "letters" },
+  { front: "Formal vs Informal Closing", back: "Formal: 'Yours faithfully' (unknown name) / 'Yours sincerely' (known name) — Informal: 'Love,' / 'Best wishes,' / 'Take care,'", topic: "letters" },
+  // Vocabulary
+  { front: "Antonym", back: "A word that means the opposite of another word. Example: hot/cold, happy/sad, big/small.", topic: "vocabulary" },
+  { front: "Synonym", back: "A word that has the same or similar meaning as another word. Example: happy/joyful, big/large.", topic: "vocabulary" },
+  { front: "Sentence Fragment", back: "An incomplete sentence that is missing a subject, a verb, or a complete thought. Example: 'Running down the street.' (no subject)", topic: "vocabulary" },
+];
+
+const englishQuiz = [
+  // Text Structures
+  { q: "Which text structure explains WHY something happened and WHAT happened as a result?", opts: ["Sequence", "Cause and Effect", "Problem and Solution", "Compare and Contrast"], ans: 1, exp: "Cause and Effect shows the reason (cause) and the result (effect) of events." },
+  { q: "Which signal word indicates a CAUSE AND EFFECT structure?", opts: ["First", "However", "As a result", "Similarly"], ans: 2, exp: "'As a result' connects a cause to its effect. Other cause/effect words: because, therefore, since." },
+  { q: "A passage that uses the words 'first,' 'next,' 'then,' and 'finally' is using which text structure?", opts: ["Cause and Effect", "Problem and Solution", "Sequence / Chronological Order", "Description"], ans: 2, exp: "These time-order words indicate a sequence structure." },
+  { q: "Read: 'Many students were struggling with maths. The school hired extra tutors to help.' What structure is this?", opts: ["Cause and Effect", "Sequence", "Problem and Solution", "Compare and Contrast"], ans: 2, exp: "The problem is students struggling; the solution is hiring tutors." },
+  { q: "Which signal words suggest a Problem and Solution structure?", opts: ["Because, therefore", "First, next, then", "The issue is, to solve this", "Similarly, however"], ans: 2, exp: "'The issue is' and 'to solve this' are classic problem/solution signal words." },
+  // Paragraphs
+  { q: "What is the purpose of a TOPIC SENTENCE?", opts: ["To provide examples", "To state the main idea of the paragraph", "To conclude the paragraph", "To transition between paragraphs"], ans: 1, exp: "The topic sentence introduces the main idea — it tells readers what the paragraph is about." },
+  { q: "In an expository paragraph, what comes BETWEEN the topic sentence and concluding sentence?", opts: ["The title", "Supporting details", "The introduction", "The thesis"], ans: 1, exp: "Supporting details (facts, examples, reasons) develop the main idea stated in the topic sentence." },
+  { q: "What does a CONCLUDING SENTENCE do?", opts: ["Introduces a new topic", "Provides the first example", "Restates the main idea or wraps up the paragraph", "Asks a question"], ans: 2, exp: "The concluding sentence restates the main idea in different words and wraps up the paragraph." },
+  { q: "Which type of writing explains or informs using facts, NOT personal opinions?", opts: ["Narrative writing", "Persuasive writing", "Expository writing", "Creative writing"], ans: 2, exp: "Expository writing explains, describes, or informs using facts and evidence." },
+  { q: "Which is the BEST topic sentence for a paragraph about ocean pollution?", opts: ["The ocean is blue and beautiful.", "Ocean pollution is a serious problem that harms marine life.", "I went to the beach last summer.", "Fish live in the ocean."], ans: 1, exp: "It clearly states a main idea that can be supported with facts and examples." },
+  // Capitalization
+  { q: "Which sentence uses CORRECT capitalization?", opts: ["i went to george Town on monday.", "I went to George Town on Monday.", "I went to george town on Monday.", "I Went To George Town On Monday."], ans: 1, exp: "Capitalize: 'I', proper nouns (George Town), days of the week (Monday)." },
+  { q: "Which word should ALWAYS be capitalized?", opts: ["school", "the", "i", "happy"], ans: 2, exp: "The pronoun 'I' is always capitalized in English." },
+  { q: "Which is a PROPER noun?", opts: ["city", "country", "Cayman Islands", "teacher"], ans: 2, exp: "Cayman Islands is a specific place name — a proper noun that must be capitalized." },
+  // Commas
+  { q: "Where should the comma go? 'I bought apples oranges and bananas.'", opts: ["After 'bought' and 'oranges'", "After 'apples' and 'oranges'", "After 'bought' only", "No commas needed"], ans: 1, exp: "Use commas to separate items in a list: I bought apples, oranges, and bananas." },
+  { q: "Which sentence uses commas correctly with a conjunction?", opts: ["I wanted to go, but it was raining.", "I wanted to go but, it was raining.", "I, wanted to go but it was raining.", "I wanted to, go but it was raining."], ans: 0, exp: "Put a comma BEFORE the conjunction (but) when joining two complete sentences." },
+  { q: "What does FANBOYS stand for?", opts: ["First, And, Nor, But, Or, Yet, So", "For, And, Nor, But, Or, Yet, So", "For, Also, Not, But, Or, Yet, So", "Finally, And, Nor, But, Or, Yes, So"], ans: 1, exp: "FANBOYS = For, And, Nor, But, Or, Yet, So — the 7 coordinating conjunctions." },
+  { q: "Which sentence needs a comma after an introductory word?", opts: ["The dog ran fast.", "However the test was easy.", "She likes to read.", "My brother is tall."], ans: 1, exp: "Add a comma after 'However': 'However, the test was easy.'" },
+  { q: "Choose the correctly punctuated sentence:", opts: ["After school I went to the library.", "After school, I went to the library.", "After, school I went to the library.", "After school I went, to the library."], ans: 1, exp: "Place a comma after the introductory phrase 'After school.'" },
+  { q: "Which uses commas correctly around non-essential information?", opts: ["My sister who is 10 loves to read.", "My sister, who is 10, loves to read.", "My sister who is 10, loves to read.", "My, sister who is 10 loves to read."], ans: 1, exp: "Non-essential info ('who is 10') needs commas on BOTH sides." },
+  // Letter Writing
+  { q: "Which closing is appropriate for a FORMAL letter to someone whose name you don't know?", opts: ["Love,", "Best wishes,", "Yours faithfully,", "See you later,"], ans: 2, exp: "'Yours faithfully' is used when you don't know the recipient's name (Dear Sir/Madam)." },
+  { q: "Which closing is appropriate for a FORMAL letter to someone whose name you know?", opts: ["Yours faithfully,", "Yours sincerely,", "Cheers,", "XOXO,"], ans: 1, exp: "'Yours sincerely' is used when you know the recipient's name (Dear Mr. Smith)." },
+  { q: "What are the 5 parts of a letter?", opts: ["Title, intro, body, conclusion, bibliography", "Heading, salutation, body, closing, signature", "Address, greeting, paragraph, ending, name", "Date, subject, message, farewell, PS"], ans: 1, exp: "The 5 parts: Heading (address/date), Salutation (greeting), Body, Closing (sign-off), Signature." },
+  { q: "A letter applying for a job position is called a:", opts: ["Complaint Letter", "Request Letter", "Job Application Letter", "Invitation Letter"], ans: 2, exp: "A job application letter is sent to apply for a position, stating qualifications and interest." },
+  { q: "In a COMPLAINT letter, what should you include?", opts: ["Only your feelings about the problem", "The problem, details, and a requested solution", "Just a greeting and your name", "A list of things you like about the company"], ans: 1, exp: "A complaint letter should clearly state the problem, provide details/evidence, and request a specific resolution." },
+  { q: "Which salutation is correct for an INFORMAL letter?", opts: ["Dear Sir/Madam,", "To Whom It May Concern,", "Dear Sarah,", "Dear Mrs. Williams,"], ans: 2, exp: "Informal letters use the person's first name: 'Dear Sarah,'" },
+  { q: "What type of letter would you write to ask your principal for permission to use the school hall?", opts: ["Complaint Letter", "Job Application Letter", "Request Letter", "Informal Letter"], ans: 2, exp: "A request letter formally asks for something specific — in this case, permission." },
+  // Comprehension & Vocabulary
+  { q: "The MAIN IDEA of a passage is:", opts: ["A minor detail in the text", "The most important point the author is making", "The first sentence only", "The title of the passage"], ans: 1, exp: "The main idea is the central message — what the text is mostly about." },
+  { q: "If you can find the answer stated directly in the text, this is:", opts: ["Inferential comprehension", "Literal comprehension", "Critical comprehension", "Creative comprehension"], ans: 1, exp: "Literal comprehension = understanding what is directly stated in the text." },
+  { q: "Reading between the lines to understand something NOT directly stated is:", opts: ["Literal comprehension", "Inferential comprehension", "Scanning", "Skimming"], ans: 1, exp: "Inferential comprehension means drawing conclusions from clues in the text." },
+  { q: "What is an ANTONYM?", opts: ["A word with the same meaning", "A word with the opposite meaning", "A word that rhymes", "A word with multiple meanings"], ans: 1, exp: "Antonym = opposite meaning. Example: hot → cold, happy → sad." },
+  { q: "What is a SYNONYM?", opts: ["A word with the opposite meaning", "A word with a similar meaning", "A word that sounds the same", "A type of noun"], ans: 1, exp: "Synonym = same or similar meaning. Example: happy → joyful, big → large." },
+  { q: "What is a SENTENCE FRAGMENT?", opts: ["A very long sentence", "A complete sentence with a period", "An incomplete sentence missing a subject, verb, or complete thought", "A sentence with commas"], ans: 2, exp: "A fragment is missing something: 'Running down the street.' has no subject — WHO is running?" },
+  { q: "Using surrounding words to figure out the meaning of an unknown word is called:", opts: ["Summarizing", "Predicting", "Using context clues", "Scanning"], ans: 2, exp: "Context clues are hints in surrounding words/sentences that help define unknown vocabulary." },
+  { q: "What is the antonym of 'generous'?", opts: ["Kind", "Selfish", "Brave", "Gentle"], ans: 1, exp: "Generous (giving freely) is the opposite of selfish (keeping for oneself)." },
+  { q: "Which is a COMPLETE sentence?", opts: ["Running to the store.", "Because I was tired.", "The cat sat on the mat.", "After the game on Friday."], ans: 2, exp: "'The cat sat on the mat' has a subject (cat), verb (sat), and complete thought." },
+  { q: "An Invitation Letter should include:", opts: ["A complaint about a service", "Event details: what, when, where, and RSVP", "A request for a raise", "Your work qualifications"], ans: 1, exp: "An invitation letter must include all event details so the recipient knows what, when, and where." },
+  { q: "What type of letter would you write to express dissatisfaction with a product you purchased?", opts: ["Request Letter", "Invitation Letter", "Job Application Letter", "Complaint Letter"], ans: 3, exp: "A complaint letter formally expresses dissatisfaction and requests a resolution." },
+];
+
+const englishFillBlanks = [
+  { sentence: "Fix: 'i went to george town on monday'", answer: "I went to George Town on Monday.", hint: "Capitalize I, proper nouns, and days" },
+  { sentence: "Fix: 'she bought apples oranges and bananas'", answer: "She bought apples, oranges, and bananas.", hint: "Add commas between list items" },
+  { sentence: "Fix: 'however the test was easy'", answer: "However, the test was easy.", hint: "Comma after introductory word" },
+  { sentence: "Fix: 'i wanted to go but it was raining'", answer: "I wanted to go, but it was raining.", hint: "Comma before conjunction joining two clauses" },
+  { sentence: "Fix: 'after school i went to the library'", answer: "After school, I went to the library.", hint: "Capitalize I + comma after introductory phrase" },
+  { sentence: "Fix: 'my teacher mrs smith is very kind'", answer: "My teacher, Mrs. Smith, is very kind.", hint: "Capitalize title + commas around non-essential info" },
+  { sentence: "Fix: 'the cayman islands are beautiful'", answer: "The Cayman Islands are beautiful.", hint: "Capitalize proper noun (country name)" },
+  { sentence: "Fix: 'first you need flour sugar and eggs'", answer: "First, you need flour, sugar, and eggs.", hint: "Comma after 'First' + commas in list" },
+  { sentence: "Fix: 'yesterday we visited london and paris'", answer: "Yesterday, we visited London and Paris.", hint: "Comma after intro word + capitalize city names" },
+  { sentence: "Fix: 'on tuesday january 14 we have a test'", answer: "On Tuesday, January 14, we have a test.", hint: "Capitalize day/month + commas around date" },
+];
+
+const englishMatchPairs = [
+  { term: "Cause & Effect", def: "Shows why something happened and the result" },
+  { term: "Sequence", def: "Events in chronological order" },
+  { term: "Problem & Solution", def: "Describes an issue and how to fix it" },
+  { term: "Topic Sentence", def: "States the main idea of a paragraph" },
+  { term: "Supporting Details", def: "Facts and examples that back up the main idea" },
+  { term: "Concluding Sentence", def: "Restates the main idea at the end" },
+  { term: "FANBOYS", def: "For, And, Nor, But, Or, Yet, So" },
+  { term: "Antonym", def: "A word with the opposite meaning" },
+  { term: "Synonym", def: "A word with a similar meaning" },
+  { term: "Context Clues", def: "Hints that help define unknown words" },
+  { term: "Formal Letter", def: "Professional letter with business tone" },
+  { term: "Sentence Fragment", def: "Incomplete sentence missing key parts" },
+];
+
+// ========== FLASHCARD ENGINE ==========
+let fcState = { cards: [], idx: 0, flipped: false };
+
+function renderFlashcards(cards, subject) {
+  fcState = { cards: [...cards], idx: 0, flipped: false };
+  const html = `
+    <div class="flashcard-container">
+      <div class="flashcard-progress" id="fcProgress">Card 1 of ${cards.length}</div>
+      <div class="flashcard" id="flashcard" onclick="flipCard()">
+        <div class="flashcard-face flashcard-front">
+          <div class="label">Term / Español</div>
+          <div class="content" id="fcFront"></div>
+          <div class="hint">Tap to flip</div>
+        </div>
+        <div class="flashcard-face flashcard-back">
+          <div class="label">Definition / English</div>
+          <div class="content" id="fcBack"></div>
+        </div>
+      </div>
+      <div class="flashcard-controls">
+        <button class="fc-btn shuffle" onclick="shuffleCards()">🔀 Shuffle</button>
+        <button class="fc-btn prev" id="fcPrev" onclick="prevCard()">← Prev</button>
+        <button class="fc-btn next" id="fcNext" onclick="nextCard()">Next →</button>
+      </div>
+    </div>
+  `;
+  showActivity('Flashcards', subject, html);
+  updateFlashcard();
+}
+
+function updateFlashcard() {
+  const card = fcState.cards[fcState.idx];
+  document.getElementById('fcFront').textContent = card.front;
+  document.getElementById('fcBack').textContent = card.back;
+  document.getElementById('fcProgress').textContent = `Card ${fcState.idx + 1} of ${fcState.cards.length}`;
+  document.getElementById('flashcard').classList.remove('flipped');
+  fcState.flipped = false;
+  document.getElementById('fcPrev').disabled = fcState.idx === 0;
+  document.getElementById('fcNext').disabled = fcState.idx === fcState.cards.length - 1;
+}
+
+function flipCard() {
+  document.getElementById('flashcard').classList.toggle('flipped');
+  fcState.flipped = !fcState.flipped;
+}
+
+function nextCard() {
+  if (fcState.idx < fcState.cards.length - 1) { fcState.idx++; updateFlashcard(); }
+}
+
+function prevCard() {
+  if (fcState.idx > 0) { fcState.idx--; updateFlashcard(); }
+}
+
+function shuffleCards() {
+  for (let i = fcState.cards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [fcState.cards[i], fcState.cards[j]] = [fcState.cards[j], fcState.cards[i]];
+  }
+  fcState.idx = 0;
+  updateFlashcard();
+}
+
+function startSpanishFlashcards() { renderFlashcards(spanishFlashcards, 'spanish'); }
+function startEnglishFlashcards() { renderFlashcards(englishFlashcards, 'english'); }
+
+// ========== QUIZ ENGINE ==========
+let quizState = { questions: [], idx: 0, score: 0, wrong: 0, answered: false };
+
+function startQuiz(questions, subject) {
+  const shuffled = [...questions].sort(() => Math.random() - 0.5).slice(0, 20);
+  quizState = { questions: shuffled, idx: 0, score: 0, wrong: 0, answered: false };
+  renderQuiz(subject);
+}
+
+function renderQuiz(subject) {
+  const q = quizState.questions[quizState.idx];
+  const letters = ['A', 'B', 'C', 'D'];
+  const pct = ((quizState.idx) / quizState.questions.length) * 100;
+  const html = `
+    <div class="quiz-area">
+      <div class="quiz-header">
+        <div class="quiz-score">
+          <span class="score-item correct">✓ <span id="qCorrect">${quizState.score}</span></span>
+          <span class="score-item wrong">✗ <span id="qWrong">${quizState.wrong}</span></span>
+        </div>
+        <span style="color:var(--text-dim);font-weight:600;">Q${quizState.idx + 1} of ${quizState.questions.length}</span>
+      </div>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${pct}%"></div></div>
+      <div class="quiz-question-card">
+        <div class="q-number">Question ${quizState.idx + 1}</div>
+        <div class="q-text">${q.q}</div>
+        ${q.passage ? `<div class="q-passage">${q.passage}</div>` : ''}
+        <div class="options-list" id="optionsList">
+          ${q.opts.map((opt, i) => `
+            <button class="option-btn" onclick="selectAnswer(${i}, '${subject}')" id="opt${i}">
+              <span class="opt-letter">${letters[i]}</span>
+              <span>${opt}</span>
+            </button>
+          `).join('')}
+        </div>
+        <div id="explanationArea"></div>
+      </div>
+      <button class="quiz-next-btn" id="quizNextBtn" style="display:none" onclick="nextQuizQuestion('${subject}')">
+        ${quizState.idx < quizState.questions.length - 1 ? 'Next Question →' : 'See Results 🎉'}
+      </button>
+    </div>
+  `;
+  document.getElementById('activityContent').innerHTML = html;
+}
+
+function selectAnswer(idx, subject) {
+  if (quizState.answered) return;
+  quizState.answered = true;
+  const q = quizState.questions[quizState.idx];
+  const btns = document.querySelectorAll('.option-btn');
+  btns.forEach(b => b.classList.add('disabled'));
+
+  if (idx === q.ans) {
+    btns[idx].classList.add('correct');
+    quizState.score++;
+    totalCorrect[subject]++;
+    updateStreak(true);
+  } else {
+    btns[idx].classList.add('wrong');
+    btns[q.ans].classList.add('correct');
+    quizState.wrong++;
+    updateStreak(false);
+  }
+  totalAttempted[subject]++;
+  updateProgress();
+
+  document.getElementById('qCorrect').textContent = quizState.score;
+  document.getElementById('qWrong').textContent = quizState.wrong;
+  document.getElementById('explanationArea').innerHTML = `<div class="explanation-box">💡 ${q.exp}</div>`;
+  document.getElementById('quizNextBtn').style.display = 'block';
+}
+
+function nextQuizQuestion(subject) {
+  if (quizState.idx < quizState.questions.length - 1) {
+    quizState.idx++;
+    quizState.answered = false;
+    renderQuiz(subject);
+  } else {
+    showQuizResults(subject);
+  }
+}
+
+function showQuizResults(subject) {
+  const pct = Math.round((quizState.score / quizState.questions.length) * 100);
+  let grade = pct >= 80 ? 'great' : pct >= 60 ? 'okay' : 'needs-work';
+  let msg = pct >= 90 ? "🌟 Outstanding! You're crushing it!" : pct >= 80 ? "🎉 Great job! Almost perfect!" : pct >= 60 ? "👍 Good effort! Keep practising!" : "💪 Keep going! Review the notes and try again!";
+
+  document.getElementById('activityContent').innerHTML = `
+    <div class="quiz-results">
+      <div class="results-circle ${grade}">
+        <div class="result-pct">${pct}%</div>
+        <div class="result-label">${quizState.score}/${quizState.questions.length}</div>
+      </div>
+      <div class="results-msg">${msg}</div>
+      <p class="results-sub">You answered ${quizState.score} questions correctly out of ${quizState.questions.length}.</p>
+      <div class="results-actions">
+        <button class="fc-btn next" onclick="startQuiz(${subject === 'spanish' ? 'spanishQuiz' : 'englishQuiz'}, '${subject}')">🔄 Try Again</button>
+        <button class="fc-btn prev" onclick="showScreen('${subject}-hub')">← Back to Hub</button>
+        <button class="fc-btn shuffle" onclick="showScreen('${subject}-notes')" style="color:var(--accent)">📖 Study Notes</button>
+      </div>
+    </div>
+  `;
+}
+
+function startSpanishQuiz() {
+  showActivity('Spanish Quiz', 'spanish', '');
+  startQuiz(spanishQuiz, 'spanish');
+}
+
+function startEnglishQuiz() {
+  showActivity('English Quiz', 'english', '');
+  startQuiz(englishQuiz, 'english');
+}
+
+// ========== MATCHING GAME ==========
+let matchState = { pairs: [], tiles: [], selected: null, matched: 0, attempts: 0, total: 0 };
+
+function startMatchingGame(pairs, subject, keyA, keyB) {
+  const selected = [...pairs].sort(() => Math.random() - 0.5).slice(0, 6);
+  matchState.total = selected.length;
+  matchState.matched = 0;
+  matchState.attempts = 0;
+  matchState.selected = null;
+
+  let tiles = [];
+  selected.forEach((p, i) => {
+    tiles.push({ id: i * 2, pairId: i, text: p[keyA], type: 'a' });
+    tiles.push({ id: i * 2 + 1, pairId: i, text: p[keyB], type: 'b' });
+  });
+  tiles.sort(() => Math.random() - 0.5);
+  matchState.tiles = tiles;
+
+  const html = `
+    <div class="game-stats">
+      <div class="stat-item">🎯 Matches: <span id="matchCount">0</span>/${matchState.total}</div>
+      <div class="stat-item">🔄 Attempts: <span id="attemptCount">0</span></div>
+    </div>
+    <div class="game-board" id="gameBoard">
+      ${tiles.map(t => `
+        <div class="game-tile" id="tile${t.id}" onclick="selectTile(${t.id}, '${subject}')" data-pair="${t.pairId}">
+          ${t.text}
+        </div>
+      `).join('')}
+    </div>
+  `;
+  showActivity('Matching Game', subject, html);
+}
+
+function selectTile(id, subject) {
+  const tile = matchState.tiles.find(t => t.id === id);
+  const el = document.getElementById('tile' + id);
+  if (el.classList.contains('matched') || el.classList.contains('selected')) return;
+
+  if (matchState.selected === null) {
+    matchState.selected = tile;
+    el.classList.add('selected');
+  } else {
+    matchState.attempts++;
+    document.getElementById('attemptCount').textContent = matchState.attempts;
+
+    if (matchState.selected.pairId === tile.pairId && matchState.selected.id !== tile.id) {
+      el.classList.add('matched');
+      document.getElementById('tile' + matchState.selected.id).classList.remove('selected');
+      document.getElementById('tile' + matchState.selected.id).classList.add('matched');
+      matchState.matched++;
+      document.getElementById('matchCount').textContent = matchState.matched;
+      totalCorrect[subject]++;
+      totalAttempted[subject]++;
+      updateStreak(true);
+      updateProgress();
+
+      if (matchState.matched === matchState.total) {
+        setTimeout(() => {
+          document.getElementById('gameBoard').innerHTML = `
+            <div style="grid-column:1/-1;text-align:center;padding:40px;">
+              <div style="font-size:3rem;margin-bottom:16px;">🎉</div>
+              <div style="font-family:'Nunito';font-weight:800;font-size:1.4rem;margin-bottom:8px;">All Matched!</div>
+              <p style="color:var(--text-dim);margin-bottom:20px;">Completed in ${matchState.attempts} attempts</p>
+              <button class="fc-btn next" onclick="${subject === 'spanish' ? 'startSpanishMatching()' : 'startEnglishMatching()'}">Play Again 🔄</button>
+            </div>`;
+        }, 600);
+      }
+    } else {
+      el.classList.add('wrong-match');
+      document.getElementById('tile' + matchState.selected.id).classList.add('wrong-match');
+      updateStreak(false);
+      totalAttempted[subject]++;
+      updateProgress();
+      const prevId = matchState.selected.id;
+      setTimeout(() => {
+        el.classList.remove('wrong-match', 'selected');
+        document.getElementById('tile' + prevId).classList.remove('wrong-match', 'selected');
+      }, 600);
+    }
+    matchState.selected = null;
+  }
+}
+
+function startSpanishMatching() { startMatchingGame(spanishMatchPairs, 'spanish', 'spanish', 'english'); }
+function startEnglishMatching() { startMatchingGame(englishMatchPairs, 'english', 'term', 'def'); }
+
+// ========== FILL IN THE BLANK ==========
+let fillState = { items: [], idx: 0, score: 0 };
+
+function startFillBlank(items, subject, isFixSentence) {
+  fillState = { items: [...items].sort(() => Math.random() - 0.5), idx: 0, score: 0 };
+  renderFillBlank(subject, isFixSentence);
+}
+
+function renderFillBlank(subject, isFixSentence) {
+  const item = fillState.items[fillState.idx];
+  const html = `
+    <div class="fill-blank-card">
+      <div class="flashcard-progress">${fillState.idx + 1} of ${fillState.items.length} &nbsp; | &nbsp; Score: ${fillState.score}</div>
+      <div class="fill-sentence">${isFixSentence ? item.sentence : item.sentence.replace('___', '<span class="blank-space">???</span>')}</div>
+      <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:16px;">💡 Hint: ${item.hint}</p>
+      <div class="fill-input-area">
+        <input type="text" class="fill-input" id="fillInput" placeholder="${isFixSentence ? 'Type the corrected sentence...' : 'Type your answer...'}" autocomplete="off"
+          onkeydown="if(event.key==='Enter')checkFillAnswer('${subject}', ${isFixSentence})">
+        <button class="fill-check-btn" onclick="checkFillAnswer('${subject}', ${isFixSentence})">Check ✓</button>
+      </div>
+      <div id="fillFeedback"></div>
+    </div>
+  `;
+  document.getElementById('activityContent').innerHTML = html;
+  setTimeout(() => document.getElementById('fillInput').focus(), 100);
+}
+
+function checkFillAnswer(subject, isFixSentence) {
+  const input = document.getElementById('fillInput').value.trim();
+  if (!input) return;
+  const item = fillState.items[fillState.idx];
+  const correct = input.toLowerCase().replace(/[.\s]+$/,'') === item.answer.toLowerCase().replace(/[.\s]+$/,'');
+
+  const fb = document.getElementById('fillFeedback');
+  if (correct) {
+    fillState.score++;
+    totalCorrect[subject]++;
+    updateStreak(true);
+    fb.innerHTML = `<div class="fill-feedback correct">✅ Correct! Well done!</div>`;
+  } else {
+    updateStreak(false);
+    fb.innerHTML = `<div class="fill-feedback wrong">❌ The correct answer is: <strong>${item.answer}</strong></div>`;
+  }
+  totalAttempted[subject]++;
+  updateProgress();
+
+  setTimeout(() => {
+    if (fillState.idx < fillState.items.length - 1) {
+      fillState.idx++;
+      renderFillBlank(subject, isFixSentence);
+    } else {
+      const pct = Math.round((fillState.score / fillState.items.length) * 100);
+      document.getElementById('activityContent').innerHTML = `
+        <div class="quiz-results">
+          <div class="results-circle ${pct >= 80 ? 'great' : pct >= 60 ? 'okay' : 'needs-work'}">
+            <div class="result-pct">${pct}%</div>
+            <div class="result-label">${fillState.score}/${fillState.items.length}</div>
+          </div>
+          <div class="results-msg">${pct >= 80 ? '🌟 Excellent!' : pct >= 60 ? '👍 Good job!' : '💪 Keep practising!'}</div>
+          <div class="results-actions">
+            <button class="fc-btn next" onclick="goBackFromActivity()">← Back to Hub</button>
+          </div>
+        </div>`;
+    }
+  }, 1800);
+}
+
+function startSpanishFillBlank() { showActivity('Fill in the Blank', 'spanish', ''); startFillBlank(spanishFillBlanks, 'spanish', false); }
+function startEnglishFillBlank() { showActivity('Fix the Sentence', 'english', ''); startFillBlank(englishFillBlanks, 'english', true); }
+
+// ========== SPELLING BEE (Spanish) ==========
+function startSpanishTyping() {
+  const words = spanishFlashcards.filter(c => !c.front.includes(' ')).sort(() => Math.random() - 0.5).slice(0, 15);
+  fillState = { items: words.map(w => ({ sentence: `Type the Spanish word for: <strong>${w.back}</strong>`, answer: w.front.split('/')[0], hint: `Starts with "${w.front[0]}"` })), idx: 0, score: 0 };
+  showActivity('Spelling Bee', 'spanish', '');
+  renderFillBlank('spanish', false);
+}
+
+// ========== WRITING PRACTICE ==========
+function startWritingPractice() {
+  const prompts = [
+    { title: "Write an Expository Paragraph", prompt: "Write an expository paragraph about why exercise is important for students. Remember to include a topic sentence, at least 3 supporting details, and a concluding sentence.", checklist: ["Topic sentence states the main idea", "At least 3 supporting details with facts/examples", "Concluding sentence restates the main idea", "Proper capitalization throughout", "Correct comma usage"] },
+    { title: "Write a Job Application Letter", prompt: "Write a formal job application letter for a position as a junior library assistant at George Town Public Library. Include all 5 parts of a letter.", checklist: ["Heading (your address and date)", "Salutation (Dear Sir/Madam or Dear Mr./Mrs. ___)", "Body explains why you're applying and your qualifications", "Professional closing (Yours faithfully/sincerely)", "Signature (your name)"] },
+    { title: "Write a Complaint Letter", prompt: "Write a formal complaint letter about a product (headphones) that stopped working after 2 days. Address it to Customer Service at TechWorld Store.", checklist: ["Heading with address and date", "Formal salutation", "Clearly states the problem", "Includes details (what, when, where purchased)", "Requests a specific solution (refund/replacement)", "Professional closing"] },
+    { title: "Write a Request Letter", prompt: "Write a formal request letter to your school principal asking for permission to organise a charity bake sale in the school hall.", checklist: ["Formal heading and salutation", "Clearly states what you're requesting", "Explains why (purpose/reason)", "Suggests details (date, time, location)", "Polite and professional tone", "Appropriate closing"] },
+  ];
+  const p = prompts[Math.floor(Math.random() * prompts.length)];
+
+  const html = `
+    <div class="writing-card">
+      <h3 style="font-family:'Nunito';font-weight:800;margin-bottom:4px;">${p.title}</h3>
+      <div class="writing-prompt-text">${p.prompt}</div>
+      <textarea class="writing-textarea" placeholder="Start writing here..."></textarea>
+      <div class="writing-checklist">
+        <div class="checklist-title">✅ Self-Check Checklist</div>
+        ${p.checklist.map((item, i) => `
+          <label class="checklist-item" id="check${i}" onclick="toggleCheck(${i})">
+            <input type="checkbox"> ${item}
+          </label>
+        `).join('')}
+      </div>
+      <div style="text-align:center;margin-top:20px;">
+        <button class="fc-btn next" onclick="startWritingPractice()">🔄 New Prompt</button>
+        <button class="fc-btn prev" onclick="goBackFromActivity()">← Back</button>
+      </div>
+    </div>
+  `;
+  showActivity('Writing Practice', 'english', html);
+}
+
+function toggleCheck(i) {
+  document.getElementById('check' + i).classList.toggle('checked');
+}
+
+// ========== STUDY NOTES ==========
+function buildNotes() {
+  // Spanish Notes
+  const spanishNotesData = [
+    { title: "🗣️ Ser (To Be) — Nationality & Identity", body: `<p>Use <strong>ser</strong> to talk about permanent characteristics: who you are, where you're from, and what you're like.</p>
+      <div class="vocab-grid">
+        <div class="vocab-item"><strong>yo soy</strong> — I am</div>
+        <div class="vocab-item"><strong>tú eres</strong> — you are</div>
+        <div class="vocab-item"><strong>él/ella es</strong> — he/she is</div>
+        <div class="vocab-item"><strong>nosotros somos</strong> — we are</div>
+        <div class="vocab-item"><strong>ellos/ellas son</strong> — they are</div>
+      </div>
+      <div class="example">¿De dónde eres? — Where are you from?<br>Soy de las Islas Caimán. — I am from the Cayman Islands.<br>Soy caymanés/caymanesa. — I am Caymanian.</div>` },
+    { title: "❓ ¿Verdad? — Asking Questions with -AR Verbs", body: `<p><strong>¿Verdad?</strong> is a tag question meaning "Right?" or "Isn't that so?" Add it to the end of a statement to confirm information.</p>
+      <p><strong>Regular -AR verb endings (present tense):</strong></p>
+      <div class="vocab-grid">
+        <div class="vocab-item"><strong>yo -o</strong> (hablo, estudio)</div>
+        <div class="vocab-item"><strong>tú -as</strong> (hablas, estudias)</div>
+        <div class="vocab-item"><strong>él/ella -a</strong> (habla, estudia)</div>
+        <div class="vocab-item"><strong>nosotros -amos</strong> (hablamos, estudiamos)</div>
+        <div class="vocab-item"><strong>ellos -an</strong> (hablan, estudian)</div>
+      </div>
+      <div class="example">Tú hablas español, ¿verdad? — You speak Spanish, right?<br>Ella estudia mucho. — She studies a lot.</div>` },
+    { title: "👤 Describing People & Things", body: `<p>Adjectives must <strong>agree in gender</strong> with the noun they describe: <strong>-o</strong> for masculine, <strong>-a</strong> for feminine. Some adjectives (like <em>inteligente</em>) stay the same.</p>
+      <div class="vocab-grid">
+        <div class="vocab-item"><strong>alto/alta</strong> — tall</div>
+        <div class="vocab-item"><strong>bajo/baja</strong> — short</div>
+        <div class="vocab-item"><strong>bonito/bonita</strong> — pretty</div>
+        <div class="vocab-item"><strong>grande</strong> — big</div>
+        <div class="vocab-item"><strong>pequeño/a</strong> — small</div>
+        <div class="vocab-item"><strong>inteligente</strong> — smart</div>
+        <div class="vocab-item"><strong>simpático/a</strong> — friendly</div>
+        <div class="vocab-item"><strong>divertido/a</strong> — funny</div>
+      </div>
+      <div class="example">Ella es alta y bonita. — She is tall and pretty.<br>Él es simpático y divertido. — He is friendly and funny.</div>` },
+    { title: "🔢 Numbers 1–40", body: `<div class="vocab-grid">
+        <div class="vocab-item"><strong>1</strong> uno</div><div class="vocab-item"><strong>2</strong> dos</div><div class="vocab-item"><strong>3</strong> tres</div>
+        <div class="vocab-item"><strong>4</strong> cuatro</div><div class="vocab-item"><strong>5</strong> cinco</div><div class="vocab-item"><strong>6</strong> seis</div>
+        <div class="vocab-item"><strong>7</strong> siete</div><div class="vocab-item"><strong>8</strong> ocho</div><div class="vocab-item"><strong>9</strong> nueve</div>
+        <div class="vocab-item"><strong>10</strong> diez</div><div class="vocab-item"><strong>11</strong> once</div><div class="vocab-item"><strong>12</strong> doce</div>
+        <div class="vocab-item"><strong>13</strong> trece</div><div class="vocab-item"><strong>14</strong> catorce</div><div class="vocab-item"><strong>15</strong> quince</div>
+        <div class="vocab-item"><strong>16</strong> dieciséis</div><div class="vocab-item"><strong>17</strong> diecisiete</div><div class="vocab-item"><strong>18</strong> dieciocho</div>
+        <div class="vocab-item"><strong>19</strong> diecinueve</div><div class="vocab-item"><strong>20</strong> veinte</div><div class="vocab-item"><strong>21</strong> veintiuno</div>
+        <div class="vocab-item"><strong>22</strong> veintidós</div><div class="vocab-item"><strong>30</strong> treinta</div><div class="vocab-item"><strong>40</strong> cuarenta</div>
+      </div>
+      <p style="margin-top:12px;"><strong>Pattern:</strong> 21–29 = veinti + number (one word). 31–39 = treinta y + number (three words).</p>` },
+    { title: "🎂 ¿Quién soy? — Age with Tener", body: `<p>In Spanish, you <strong>"have" years</strong> instead of "being" a certain age. Use the verb <strong>tener</strong>.</p>
+      <div class="vocab-grid">
+        <div class="vocab-item"><strong>yo tengo</strong> — I have</div>
+        <div class="vocab-item"><strong>tú tienes</strong> — you have</div>
+        <div class="vocab-item"><strong>él/ella tiene</strong> — he/she has</div>
+        <div class="vocab-item"><strong>nosotros tenemos</strong> — we have</div>
+      </div>
+      <div class="example">¿Cuántos años tienes? — How old are you?<br>Tengo doce años. — I am 12 years old.</div>` },
+    { title: "⚽ Sports & Me Gusta", body: `<p>Use <strong>me gusta</strong> (I like) + el/la + sport to talk about favourite sports.</p>
+      <div class="vocab-grid">
+        <div class="vocab-item"><strong>el fútbol</strong> — soccer</div>
+        <div class="vocab-item"><strong>el baloncesto</strong> — basketball</div>
+        <div class="vocab-item"><strong>el béisbol</strong> — baseball</div>
+        <div class="vocab-item"><strong>la natación</strong> — swimming</div>
+        <div class="vocab-item"><strong>el tenis</strong> — tennis</div>
+      </div>
+      <div class="example">Me gusta el fútbol. — I like soccer.<br>No me gusta el béisbol. — I don't like baseball.<br>¿Cuál es tu deporte favorito? — What is your favourite sport?</div>` },
+    { title: "🕐 ¿Qué hora es? — Telling Time", body: `<p>Use <strong>Es la</strong> for 1 o'clock and <strong>Son las</strong> for all other hours.</p>
+      <div class="vocab-grid">
+        <div class="vocab-item"><strong>Es la una</strong> — 1:00</div>
+        <div class="vocab-item"><strong>Son las dos</strong> — 2:00</div>
+        <div class="vocab-item"><strong>y media</strong> — :30 (half past)</div>
+        <div class="vocab-item"><strong>y cuarto</strong> — :15 (quarter past)</div>
+        <div class="vocab-item"><strong>menos cuarto</strong> — :45 (quarter to)</div>
+      </div>
+      <div class="example">Son las tres y media. — It is 3:30.<br>Son las cinco menos cuarto. — It is 4:45.</div>` },
+    { title: "📅 Days of the Week", body: `<p><strong>Note:</strong> Days of the week are <strong>NOT capitalised</strong> in Spanish!</p>
+      <div class="vocab-grid">
+        <div class="vocab-item"><strong>lunes</strong> — Monday</div>
+        <div class="vocab-item"><strong>martes</strong> — Tuesday</div>
+        <div class="vocab-item"><strong>miércoles</strong> — Wednesday</div>
+        <div class="vocab-item"><strong>jueves</strong> — Thursday</div>
+        <div class="vocab-item"><strong>viernes</strong> — Friday</div>
+        <div class="vocab-item"><strong>sábado</strong> — Saturday</div>
+        <div class="vocab-item"><strong>domingo</strong> — Sunday</div>
+      </div>` },
+    { title: "😊 Feelings with Estar", body: `<p>Use <strong>estar</strong> for temporary states and emotions: ¿Cómo estás? — How are you?</p>
+      <div class="vocab-grid">
+        <div class="vocab-item"><strong>contento/a</strong> — happy</div>
+        <div class="vocab-item"><strong>triste</strong> — sad</div>
+        <div class="vocab-item"><strong>enojado/a</strong> — angry</div>
+        <div class="vocab-item"><strong>cansado/a</strong> — tired</div>
+        <div class="vocab-item"><strong>enfermo/a</strong> — sick</div>
+        <div class="vocab-item"><strong>nervioso/a</strong> — nervous</div>
+      </div>
+      <div class="example">Estoy bien, gracias. — I'm fine, thank you.<br>Estoy cansada hoy. — I'm tired today (female).</div>` },
+    { title: "🚌 Llegamos Tarde — Places & Going", body: `<p>The verb <strong>ir</strong> (to go) is irregular. Use <strong>a + la/el</strong> to say where you're going. (a + el = <strong>al</strong>)</p>
+      <div class="vocab-grid">
+        <div class="vocab-item"><strong>yo voy</strong> — I go</div>
+        <div class="vocab-item"><strong>tú vas</strong> — you go</div>
+        <div class="vocab-item"><strong>él/ella va</strong> — he/she goes</div>
+        <div class="vocab-item"><strong>nosotros vamos</strong> — we go</div>
+      </div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><strong>la escuela</strong> — school</div>
+        <div class="vocab-item"><strong>el parque</strong> — park</div>
+        <div class="vocab-item"><strong>la tienda</strong> — store</div>
+        <div class="vocab-item"><strong>la biblioteca</strong> — library</div>
+        <div class="vocab-item"><strong>temprano</strong> — early</div>
+        <div class="vocab-item"><strong>tarde</strong> — late</div>
+        <div class="vocab-item"><strong>a tiempo</strong> — on time</div>
+      </div>
+      <div class="example">Voy a la escuela. — I go to school.<br>Voy al parque. — I go to the park. (a + el = al)</div>` },
+  ];
+
+  // English Notes
+  const englishNotesData = [
+    { title: "📊 Text Structure: Cause & Effect", body: `<p>This structure explains <strong>why something happened</strong> (the cause) and <strong>what happened as a result</strong> (the effect).</p>
+      <p><strong>Signal words:</strong> because, since, therefore, as a result, consequently, due to, so, for this reason, if…then</p>
+      <div class="example"><strong>Example:</strong> Because it rained heavily (CAUSE), the football match was cancelled (EFFECT).</div>
+      <p><strong>Tip:</strong> Ask yourself — "Why did this happen?" (cause) and "What happened because of it?" (effect).</p>` },
+    { title: "📊 Text Structure: Sequence", body: `<p>Presents events or steps <strong>in the order they happen</strong> (chronological order).</p>
+      <p><strong>Signal words:</strong> first, second, next, then, after, before, finally, during, meanwhile, later</p>
+      <div class="example"><strong>Example:</strong> First, preheat the oven to 180°C. Next, mix the flour and sugar. Then, add the eggs. Finally, bake for 25 minutes.</div>
+      <p><strong>Tip:</strong> Look for time-order words. If you can number the steps or events, it's likely a sequence structure.</p>` },
+    { title: "📊 Text Structure: Problem & Solution", body: `<p>Describes a <strong>problem</strong> and then explains one or more <strong>solutions</strong>.</p>
+      <p><strong>Signal words:</strong> the problem is, the issue is, the solution is, to solve this, one way to fix, as a result of this action</p>
+      <div class="example"><strong>Example:</strong> The problem is that many students skip breakfast. One solution is for schools to offer free morning meals.</div>
+      <p><strong>Tip:</strong> Ask — "What is wrong?" (problem) and "How can it be fixed?" (solution).</p>` },
+    { title: "✍️ Expository Paragraph Writing", body: `<p>An expository paragraph <strong>explains or informs</strong> using facts — no personal opinions.</p>
+      <p><strong>Structure:</strong></p>
+      <ul>
+        <li><strong>Topic Sentence</strong> — States the main idea (first sentence)</li>
+        <li><strong>Supporting Details</strong> — 2-4 sentences with facts, examples, reasons</li>
+        <li><strong>Concluding Sentence</strong> — Restates the main idea in different words (last sentence)</li>
+      </ul>
+      <div class="example"><strong>Example:</strong><br>
+      <em>(Topic)</em> Regular exercise is essential for students' health.<br>
+      <em>(Support)</em> Physical activity strengthens the heart and improves concentration. Students who exercise regularly tend to perform better in school. Exercise also reduces stress and improves sleep quality.<br>
+      <em>(Conclusion)</em> For these reasons, daily exercise should be a priority for every student.</div>` },
+    { title: "🔤 Capitalization Rules", body: `<p>Always capitalize:</p>
+      <ul>
+        <li>The <strong>first word</strong> of every sentence</li>
+        <li><strong>Proper nouns</strong> — specific names of people, places, countries (George Town, Cayman Islands, Mrs. Smith)</li>
+        <li><strong>Days of the week and months</strong> (Monday, January)</li>
+        <li>The pronoun <strong>"I"</strong></li>
+        <li><strong>Titles</strong> before names (Mr., Mrs., Dr., President)</li>
+        <li><strong>Titles of works</strong> — books, movies, songs</li>
+      </ul>
+      <div class="example">✅ I went to George Town on Monday.<br>❌ i went to george town on monday.</div>` },
+    { title: "📝 Comma Rules", body: `<p><strong>1. Commas in a list:</strong> Separate 3+ items.<br>
+      <em>I need pens, pencils, and erasers.</em></p>
+      <p><strong>2. After introductory words/phrases:</strong><br>
+      <em>However, the test was easy.</em><br><em>After school, I went home.</em></p>
+      <p><strong>3. Before FANBOYS joining two complete sentences:</strong><br>
+      <em>I wanted to go, but it was raining.</em></p>
+      <p><strong>4. Around non-essential information:</strong><br>
+      <em>My sister, who is 10, loves to read.</em></p>
+      <div class="example"><strong>FANBOYS:</strong> For, And, Nor, But, Or, Yet, So<br>Remember: Only use a comma before FANBOYS when connecting two COMPLETE sentences.</div>` },
+    { title: "🔍 Comprehension: Main Ideas & Levels", body: `<p><strong>Main Idea:</strong> The most important point the author is making. Ask: "What is this text mostly about?"</p>
+      <p><strong>Levels of Comprehension:</strong></p>
+      <ul>
+        <li><strong>Literal</strong> — What the text directly says (facts, details stated explicitly)</li>
+        <li><strong>Inferential</strong> — Reading between the lines (conclusions based on clues)</li>
+        <li><strong>Critical/Evaluative</strong> — Judging the text (Is the argument convincing? What's the author's purpose?)</li>
+      </ul>
+      <div class="example"><strong>Literal Q:</strong> What colour was the dog? (answer is stated)<br><strong>Inferential Q:</strong> Why do you think the character felt sad? (you must infer from clues)</div>` },
+    { title: "✉️ Letter Writing — Format & Types", body: `<p><strong>5 Parts of a Letter:</strong></p>
+      <ul>
+        <li><strong>Heading</strong> — Your address and the date</li>
+        <li><strong>Salutation</strong> — Greeting (Dear Sir/Madam, Dear Mr. Smith,)</li>
+        <li><strong>Body</strong> — Main content (1-3 paragraphs)</li>
+        <li><strong>Closing</strong> — Sign-off (Yours faithfully, Yours sincerely,)</li>
+        <li><strong>Signature</strong> — Your name</li>
+      </ul>
+      <p><strong>Formal closings:</strong> "Yours faithfully" (don't know the name) / "Yours sincerely" (know the name)</p>
+      <p><strong>Types of Formal Letters:</strong></p>
+      <ul>
+        <li><strong>Job Application</strong> — Applying for a position</li>
+        <li><strong>Complaint</strong> — Expressing dissatisfaction, requesting resolution</li>
+        <li><strong>Invitation</strong> — Inviting to an event (include what, when, where)</li>
+        <li><strong>Request</strong> — Asking for something specific</li>
+      </ul>` },
+    { title: "📖 Context Clues & Vocabulary", body: `<p><strong>Context clues</strong> are hints in the surrounding text that help you figure out an unknown word's meaning.</p>
+      <p><strong>Types of context clues:</strong></p>
+      <ul>
+        <li><strong>Synonym clue</strong> — A similar word is nearby: "She was <em>elated</em>, or very happy, about the news."</li>
+        <li><strong>Antonym clue</strong> — An opposite word is nearby: "Unlike his <em>timid</em> brother, Jake was bold."</li>
+        <li><strong>Definition clue</strong> — The word is defined in the sentence: "A <em>habitat</em> is the natural home of an animal."</li>
+        <li><strong>Example clue</strong> — Examples explain the word: "She brought <em>provisions</em> such as water, food, and blankets."</li>
+      </ul>
+      <p><strong>Key Terms:</strong></p>
+      <ul>
+        <li><strong>Antonym</strong> — Opposite meaning (hot/cold)</li>
+        <li><strong>Synonym</strong> — Same meaning (happy/joyful)</li>
+        <li><strong>Sentence Fragment</strong> — Incomplete sentence missing subject, verb, or complete thought</li>
+      </ul>` },
+  ];
+
+  const spContainer = document.getElementById('spanishNotes');
+  spanishNotesData.forEach((note, i) => {
+    spContainer.innerHTML += `
+      <div class="note-card" id="spNote${i}">
+        <div class="note-card-header" onclick="toggleNote('spNote${i}')">
+          <h4>${note.title}</h4>
+          <span class="note-arrow">▼</span>
+        </div>
+        <div class="note-card-body">${note.body}</div>
+      </div>`;
+  });
+
+  const enContainer = document.getElementById('englishNotes');
+  englishNotesData.forEach((note, i) => {
+    enContainer.innerHTML += `
+      <div class="note-card" id="enNote${i}">
+        <div class="note-card-header" onclick="toggleNote('enNote${i}')">
+          <h4>${note.title}</h4>
+          <span class="note-arrow">▼</span>
+        </div>
+        <div class="note-card-body">${note.body}</div>
+      </div>`;
+  });
+}
+
+function toggleNote(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+// Initialize
+buildNotes();
+</script>
+</body>
+</html>
